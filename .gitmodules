@@ -1,3 +1,6 @@
 [submodule "modules/mavlink"]
 	path = modules/mavlink
 	url = https://github.com/huynhthehainam/mavlink
+[submodule "modules/curl"]
+	path = modules/curl
+	url = https://github.com/curl/curl.git
