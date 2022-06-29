@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html manifest="manifest.appcache">
+
+<head>
+    <title>MiSmart</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="text/javascript" src="js/config.js"></script>
+    <script type="text/javascript" src="js/cors.js"></script>
+    <script type="text/javascript" src="js/mavlink.js"></script>
+</head>
+
+<body>
+
+    <p><a href="index.html"><img src="images/main_logo.png" alt="ArduPilot" width="500"></a></p>
+
+
+    <h2>Flight Hub</h2>
+
+        <label for="token">Device token:</label>
+        <input id="token" type="text"><br>
+        <button id="submitButton"> Submit</button>
+
+    <script>
+        var tokenInput =  document.getElementById("token");
+        tokenInput.value = "faskfnaskfnaskj";
+        var submitButton =  document.getElementById("submitButton");
+        submitButton.onclick = function() {
+
+            console.log(tokenInput.value)
+        }
+    </script>
+
+
+</body>
+
+</html>
