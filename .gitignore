@@ -1,3 +1,4 @@
 *.o
 generated
 web_server
+.venv
