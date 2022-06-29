@@ -4,6 +4,8 @@
         "fstream": "c",
         "ostream": "c",
         "sstream": "c",
-        "streambuf": "c"
+        "streambuf": "c",
+        "mavlink_core.h": "c",
+        "web_server.h": "c"
     }
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html manifest="manifest.appcache">
 
 <head>
@@ -14,23 +14,33 @@
 
     <p><a href="index.html"><img src="images/main_logo.png" alt="ArduPilot" width="500"></a></p>
 
-
     <h2>Flight Hub</h2>
-
-        <label for="token">Device token:</label>
-        <input id="token" type="text"><br>
-        <button id="submitButton"> Submit</button>
+    <label for="token">Device token:</label>
+    <input id="token" type="text"><br>
+    <button id="submitButton"> Submit</button>
 
     <script>
-        var tokenInput =  document.getElementById("token");
-        tokenInput.value = "faskfnaskfnaskj";
-        var submitButton =  document.getElementById("submitButton");
-        submitButton.onclick = function() {
+        var tokenInput = document.getElementById("token");
+        var submitButton = document.getElementById("submitButton");
+        fetch(drone_url + '/ajax/token.json').then(async (resp) => {
+            const data = await resp.text()
+            console.log(data);
+            tokenInput.value = data;
+        });
 
-            console.log(tokenInput.value)
+        submitButton.onclick = async function () {
+            var token = tokenInput.value;
+            console.log(token);
+            const formData = new FormData();
+            formData.append("command1", token);
+            fetch(drone_url + '/ajax/set_token_command.json', {
+                method: 'post',
+                body: formData,
+            }).then((resp) => {
+                console.log('updated');
+            })
         }
     </script>
-
 
 </body>
 
