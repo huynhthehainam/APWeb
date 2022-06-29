@@ -20,7 +20,7 @@ static pthread_mutex_t lock;
 static int serial_port_fd = -1;
 static int fc_udp_in_fd = -1;
 static int udp_out_fd = -1;
-const int FLIGHT_HUB_DELAY = 5;
+const int FLIGHT_HUB_DELAY = 5; // 5 seconds
 
 struct sockaddr_in fc_addr;
 socklen_t fc_addrlen;
