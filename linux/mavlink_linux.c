@@ -17,9 +17,6 @@ struct mavlink_packet
 
 static struct mavlink_packet *mavlink_packets;
 
-
-
-static struct flight_hub_packets *flight_hub_packets;
 /*
   list of parameters received
  */
@@ -76,15 +73,14 @@ static void mavlink_periodic(void)
     }
     if (now - last_heartbeat > 10 || last_heartbeat == 0)
     {
-        console_printf("heartbeat ok\n");
+     //   console_printf("heartbeat ok\n");
     }
 
     if (param_count == 0 ||
         (param_expected_count > param_count &&
          get_sys_seconds_boot() - param_last_value_sec > 20))
     {
-        console_printf("requesting parameters param_count=%u param_expected_count=%u\n",
-                       param_count, param_expected_count);
+    //    console_printf("requesting parameters param_count=%u param_expected_count=%u\n", param_count, param_expected_count);
         mavlink_msg_param_request_list_send(MAVLINK_COMM_FC,
                                             MAVLINK_TARGET_SYSTEM_ID,
                                             0);
@@ -363,16 +359,7 @@ bool mavlink_handle_msg(const mavlink_message_t *msg)
     {
         uint32_t receive_ms = 0;
         mavlink_message_t *gps_msg = mavlink_get_message_by_msgid(MAVLINK_MSG_ID_GPS_RAW_INT, &receive_ms);
-        struct flight_hub_packets *p;
-        p = talloc_size(NULL, sizeof(*p));
-        if (p == NULL)
-        {
-            return;
-        }
-        p->next = flight_hub_packets;
-        memcpy(&p->coordinate_msg, gps_msg, sizeof(mavlink_message_t));
-        p->receive_ms = get_time_boot_ms();
-        flight_hub_packets = p;
+        add_flight_hub_record(gps_msg);
         break;
     }
 
@@ -389,20 +376,4 @@ void mavlink_param_set(const char *name, float value)
 {
     console_printf("Setting parameter %s to %f\n", name, value);
     mavlink_msg_param_set_send(MAVLINK_COMM_FC, MAVLINK_TARGET_SYSTEM_ID, 0, name, value, 0);
-}
-
-void send_to_flight_hub()
-{
-    console_printf("send from mavlink reset\n");
-
-    //MiSmart remove flight hub data
-    struct flight_hub_packets *current = flight_hub_packets;
-    struct flight_hub_packets *next = NULL;
-    while (current != NULL)
-    {
-        next = current->next;
-        free(current);
-        current = next;
-    }
-    flight_hub_packets = NULL;
 }

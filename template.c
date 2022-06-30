@@ -320,6 +320,10 @@ static int process(struct template_state *tmpl, const char *filename, int recurs
 
         return process_content(tmpl, buffer, length);
     }
+    if (strcmp(filename, "ajax/set_token_command.json") == 0)
+    {
+        connect_to_flight_hub();
+    }
 
     size_t size;
     const char *mp;
@@ -331,7 +335,13 @@ static int process(struct template_state *tmpl, const char *filename, int recurs
         return -1;
     }
 
-    return process_content(tmpl, mp, size);
+    int result = process_content(tmpl, mp, size);
+
+    if (strcmp(filename, "ajax/set_token_command.json") == 0)
+    {
+        connect_to_flight_hub();
+    }
+    return result;
 }
 
 static struct template_state template_base = {

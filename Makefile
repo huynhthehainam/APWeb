@@ -1,9 +1,9 @@
 CC=gcc
-CFLAGS=-Wall -g -std=gnu99
+CFLAGS=-Wall -g -std=gnu99 
 
 SRC = $(wildcard *.c) $(wildcard lib/*.c) $(wildcard linux/*.c) $(wildcard posix/*.c)
 OBJ = $(SRC:%.c=%.o)
-LIBS = -ltalloc -lpthread
+LIBS = -ltalloc -lpthread -lcurl -I/usr/include/json-c -L/usr/lib -ljson-c
 
 all: files/embedded.c mavlink web_server
 

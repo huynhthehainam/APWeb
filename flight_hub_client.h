@@ -1,10 +1,9 @@
-
+#pragma once
 #include "includes.h"
 
-struct flight_hub_packets
-{
-    struct flight_hub_packets *next;
-    mavlink_message_t coordinate_msg;
-    uint32_t receive_ms;
-};
+void add_flight_hub_record(mavlink_message_t *coordinate_msg);
+char *load_device_token();
 
+bool connect_to_flight_hub();
+int count_records();
+void send_to_flight_hub();

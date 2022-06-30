@@ -5,7 +5,7 @@
     echo "# "$(date)
     echo "CACHE:"
     echo /
-    for f in *.html js/*.js images/*.svg images/*.png css/*.css data/*.xml; do
+    for f in *.html *.ico js/*.js images/*.svg images/*.png css/*.css data/*.xml; do
         echo $f
     done
     echo "NETWORK:"

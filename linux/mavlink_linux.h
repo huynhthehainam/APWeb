@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../mavlink_core.h"
+#include "../flight_hub_client.h"
 
 struct sock_buf;
 
@@ -13,5 +14,3 @@ bool mavlink_param_get(const char *name, float *value);
 void mavlink_param_list_json(struct sock_buf *sock, const char *prefix, bool *first);
 void mavlink_fc_send(mavlink_message_t *msg);
 bool mavlink_handle_msg(const mavlink_message_t *msg);
-void send_to_flight_hub();
-

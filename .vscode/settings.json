@@ -7,6 +7,10 @@
         "streambuf": "c",
         "mavlink_core.h": "c",
         "web_server.h": "c",
-        "mavlink_linux.h": "c"
+        "mavlink_linux.h": "c",
+        "flight_hub_client.h": "c",
+        "includes.h": "c",
+        "curl.h": "c",
+        "json.h": "c"
     }
 }

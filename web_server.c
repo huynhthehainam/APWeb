@@ -592,7 +592,6 @@ static void select_loop(int http_socket_fd, int udp_socket_fd)
         int current_time = (int)time(NULL);
         if (current_time - previous_time >= FLIGHT_HUB_DELAY)
         {
-            printf("send to flight hub \n");
             send_to_flight_hub();
             previous_time = current_time;
         }
@@ -1072,6 +1071,8 @@ int main(int argc, char *argv[])
         }
     }
 
+    bool is_connected = connect_to_flight_hub(); // try to connect flight hub
+    console_printf(" is connected: %s\n", is_connected ? "true" : "false");
     select_loop(http_socket_fd, udp_socket_fd);
 
     return 0;
