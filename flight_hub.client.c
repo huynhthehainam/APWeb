@@ -82,13 +82,9 @@ bool connect_to_flight_hub()
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 
         char *req_body = (char *)malloc(strlen(first_str) + strlen(token) + strlen(end_str));
-        console_printf("123 %d\n", strlen(first_str) + strlen(token) + strlen(end_str));
-
         strcpy(req_body, first_str);
         strcat(req_body, token);
         strcat(req_body, end_str);
-        console_printf("124\n");
-        console_printf("req_body %s\n", req_body);
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, req_body);
 
         res = curl_easy_perform(curl);
