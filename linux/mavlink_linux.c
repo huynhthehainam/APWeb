@@ -73,14 +73,14 @@ static void mavlink_periodic(void)
     }
     if (now - last_heartbeat > 10 || last_heartbeat == 0)
     {
-     //   console_printf("heartbeat ok\n");
+        //   console_printf("heartbeat ok\n");
     }
 
     if (param_count == 0 ||
         (param_expected_count > param_count &&
          get_sys_seconds_boot() - param_last_value_sec > 20))
     {
-    //    console_printf("requesting parameters param_count=%u param_expected_count=%u\n", param_count, param_expected_count);
+        //    console_printf("requesting parameters param_count=%u param_expected_count=%u\n", param_count, param_expected_count);
         mavlink_msg_param_request_list_send(MAVLINK_COMM_FC,
                                             MAVLINK_TARGET_SYSTEM_ID,
                                             0);
@@ -355,11 +355,11 @@ bool mavlink_handle_msg(const mavlink_message_t *msg)
         command_ack_save(&m);
         break;
     }
-    case MAVLINK_MSG_ID_GPS_RAW_INT:
+    case MAVLINK_MSG_ID_HIGH_LATENCY:
     {
         uint32_t receive_ms = 0;
-        mavlink_message_t *gps_msg = mavlink_get_message_by_msgid(MAVLINK_MSG_ID_GPS_RAW_INT, &receive_ms);
-        add_flight_hub_record(gps_msg);
+        mavlink_message_t *high_latency = mavlink_get_message_by_msgid(MAVLINK_MSG_ID_HIGH_LATENCY, &receive_ms);
+        add_flight_hub_record(high_latency);
         break;
     }
 
