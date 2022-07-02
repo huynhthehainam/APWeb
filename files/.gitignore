@@ -1,3 +1,4 @@
 /embedded.c
 /manifest.appcache
 /version.h
+!ajax/token.json
