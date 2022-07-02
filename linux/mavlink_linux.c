@@ -109,6 +109,7 @@ static void param_save_packet(const mavlink_message_t *msg)
     {
         if (strncmp(p->name, param_pkt.param_id, 16) == 0)
         {
+
             p->value = param_pkt.param_value;
             param_last_value_sec = get_sys_seconds_boot();
             if (param_pkt.param_count < 30000 &&
@@ -217,8 +218,10 @@ static void mavlink_save_packet(const mavlink_message_t *msg)
     {
         if (p->msg.msgid == msg->msgid)
         {
+
             memcpy(&p->msg, msg, sizeof(mavlink_message_t));
             p->receive_ms = get_time_boot_ms();
+
             return;
         }
     }
@@ -231,6 +234,7 @@ static void mavlink_save_packet(const mavlink_message_t *msg)
     p->name = mavlink_message_name(msg);
     memcpy(&p->msg, msg, sizeof(mavlink_message_t));
     p->receive_ms = get_time_boot_ms();
+    console_printf("name %s\n", p->name);
     mavlink_packets = p;
 }
 
@@ -355,11 +359,13 @@ bool mavlink_handle_msg(const mavlink_message_t *msg)
         command_ack_save(&m);
         break;
     }
-    case MAVLINK_MSG_ID_HIGH_LATENCY:
+    case MAVLINK_MSG_ID_GPS_RAW_INT:
     {
         uint32_t receive_ms = 0;
-        mavlink_message_t *high_latency = mavlink_get_message_by_msgid(MAVLINK_MSG_ID_HIGH_LATENCY, &receive_ms);
-        add_flight_hub_record(high_latency);
+        mavlink_message_t *gps_msg = mavlink_get_message_by_msgid(MAVLINK_MSG_ID_GPS_RAW_INT, &receive_ms);
+        uint32_t imu_msg_receive_ms = 0;
+        mavlink_message_t *imu_msg = mavlink_get_message_by_msgid(MAVLINK_MSG_ID_RAW_IMU, &imu_msg_receive_ms);
+        add_flight_hub_record(gps_msg, imu_msg);
         break;
     }
 
